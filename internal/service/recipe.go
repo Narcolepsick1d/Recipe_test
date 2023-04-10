@@ -1,7 +1,7 @@
 package service
 
 import (
-	"reciept/models"
+	"reciept/internal/models"
 )
 
 type RecipeRepository interface {

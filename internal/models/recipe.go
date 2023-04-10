@@ -1,11 +1,5 @@
 package models
 
-import "errors"
-
-var (
-	ErrRecipeNotFound = errors.New("recipe not found")
-)
-
 type Recipe struct {
 	ID            int64   `json:"id"`
 	Name          string  `json:"name"`

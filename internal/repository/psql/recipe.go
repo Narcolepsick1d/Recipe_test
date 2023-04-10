@@ -1,10 +1,9 @@
-package repository
+package psql
 
 import (
-	"context"
 	"database/sql"
 	"fmt"
-	"reciept/models"
+	"reciept/internal/models"
 	"strings"
 )
 
@@ -33,7 +32,7 @@ func (r *Recipe) GetByID(id int64) (models.Recipe, error) {
 	return recipe, err
 }
 
-func (r *Recipe) GetAll(ctx context.Context) ([]models.Recipe, error) {
+func (r *Recipe) GetAll() ([]models.Recipe, error) {
 	rows, err := r.db.Query("SELECT id, name,description, ingredients, steps, total_time, rates, rates_quantity FROM recipe")
 	if err != nil {
 		return nil, err
