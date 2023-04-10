@@ -43,13 +43,16 @@ func (h *Handler) InitRouter() *mux.Router {
 		auth.HandleFunc("/sign-in", h.signIn).Methods(http.MethodGet)
 		auth.HandleFunc("/refresh", h.refresh).Methods(http.MethodGet)
 	}
-
 	recipes := r.PathPrefix("/recipes").Subrouter()
 	{
 		recipes.HandleFunc("", h.getAllRecipes).Methods(http.MethodGet)
 
-		recipes.Use(h.authMiddleware)
+	}
+	recipes = r.PathPrefix("/recipes").Subrouter()
 
+	{
+
+		recipes.Use(h.authMiddleware)
 		recipes.HandleFunc("", h.createRecipe).Methods(http.MethodPost)
 		recipes.HandleFunc("/{id:[0-9]+}", h.getRecipeByID).Methods(http.MethodGet)
 		recipes.HandleFunc("/{id:[0-9]+}", h.deleteRecipe).Methods(http.MethodDelete)
