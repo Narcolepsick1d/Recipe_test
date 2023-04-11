@@ -163,3 +163,34 @@ func (h *Handler) getByIngredient(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	w.Write(response)
 }
+func (h *Handler) getByTotalTime(w http.ResponseWriter, r *http.Request) {
+	totalTime, err := getTotalTimeFromRequest(r)
+	if err != nil {
+		logError("getRecipeByTotalTime", err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	recipe, err := h.recipesService.FilteredByTime(totalTime)
+	if err != nil {
+		if errors.Is(err, models.ErrRecipeNotFound) {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		logError("getRecipeByTotalTime", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	response, err := json.Marshal(recipe)
+	if err != nil {
+		logError("getRecipeByTotalTime", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Add("Content-Type", "application/json")
+	w.Write(response)
+
+}

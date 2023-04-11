@@ -11,6 +11,7 @@ type RecipeRepository interface {
 	Delete(id int64) error
 	Update(id int64, inp models.RecipeUpdate) error
 	GetByIngredient(ingredient string) ([]models.Recipe, error)
+	FilteredByTime(totalTime int) ([]models.Recipe, error)
 }
 
 type Recipe struct {
@@ -45,4 +46,7 @@ func (r *Recipe) Update(id int64, inp models.RecipeUpdate) error {
 }
 func (r *Recipe) GetByIngredient(ingredient string) ([]models.Recipe, error) {
 	return r.repo.GetByIngredient(ingredient)
+}
+func (r *Recipe) FilteredByTime(totalTime int) ([]models.Recipe, error) {
+	return r.repo.FilteredByTime(totalTime)
 }

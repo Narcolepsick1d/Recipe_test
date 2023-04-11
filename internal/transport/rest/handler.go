@@ -15,6 +15,7 @@ type Recipes interface {
 	Delete(id int64) error
 	Update(id int64, inp models.RecipeUpdate) error
 	GetByIngredient(ingredient string) ([]models.Recipe, error)
+	FilteredByTime(totalTime int) ([]models.Recipe, error)
 }
 
 type User interface {
@@ -47,6 +48,7 @@ func (h *Handler) InitRouter() *mux.Router {
 	recipes := r.PathPrefix("/recipes").Subrouter()
 	{
 		recipes.HandleFunc("", h.getAllRecipes).Methods(http.MethodGet)
+		recipes.HandleFunc("/total_time/{total_time}", h.getByTotalTime).Methods(http.MethodGet)
 
 	}
 	recipes = r.PathPrefix("/recipes").Subrouter()
@@ -54,6 +56,7 @@ func (h *Handler) InitRouter() *mux.Router {
 	{
 
 		recipes.Use(h.authMiddleware)
+
 		recipes.HandleFunc("/ingredient/{ingredient}", h.getByIngredient).Methods(http.MethodGet)
 		recipes.HandleFunc("", h.createRecipe).Methods(http.MethodPost)
 		recipes.HandleFunc("/{id:[0-9]+}", h.getRecipeByID).Methods(http.MethodGet)
@@ -87,4 +90,17 @@ func getIngredientFromRequest(r *http.Request) (string, error) {
 		return "", errors.New("no ingredient is mention ")
 	}
 	return ingredient, nil
+}
+func getTotalTimeFromRequest(r *http.Request) (int, error) {
+	vars := mux.Vars(r)
+	totalTime, err := strconv.ParseInt(vars["total_time"], 10, 64)
+	if err != nil {
+		return 0, err
+	}
+
+	if totalTime == 0 {
+		return 0, errors.New("totalTime can't be 0")
+	}
+
+	return int(totalTime), nil
 }
