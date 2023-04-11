@@ -5,15 +5,15 @@ type Recipe struct {
 	Name          string  `json:"name"`
 	Description   string  `json:"description"`
 	Ingredients   string  `json:"ingredients"`
-	Steps         string  `json:"steps"`
+	Steps         []Steps `json:"steps"`
 	TotalTime     int     `json:"totalTime"`
 	Rates         float64 `json:"rates"`
 	RatesQuantity int     `json:"rates_quantity"`
 }
 type RecipeUpdate struct {
-	Name        *string `json:"name"`
-	Description *string `json:"description"`
-	Ingredients *string `json:"ingredients"`
-	Steps       *string `json:"steps"`
-	TotalTime   *int    `json:"totalTime"`
+	Name        *string  `json:"name"`
+	Description *string  `json:"description"`
+	Ingredients *string  `json:"ingredients"`
+	Steps       *[]Steps `json:"steps"`
+	TotalTime   *int     `json:"totalTime"`
 }

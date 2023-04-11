@@ -16,9 +16,14 @@ func NewRecipe(db *sql.DB) *Recipe {
 }
 
 func (r *Recipe) Create(recipe models.Recipe) error {
-	_, err := r.db.Exec("INSERT into recipe (name,description, ingredients, steps, total_time, rates, rates_quantity) VALUES($1,$2,$3,$4,$5,$6,$7)",
-		recipe.Name, recipe.Description, recipe.Ingredients, recipe.Steps, recipe.TotalTime, recipe.Rates, recipe.RatesQuantity)
-
+	totalTime := r.getTotalTime(recipe)
+	_, err := r.db.Exec("INSERT into recipe (name,description, ingredients,total_time, rates, rates_quantity) VALUES($1,$2,$3,$4,$5,$6)",
+		recipe.Name, recipe.Description, recipe.Ingredients, totalTime, recipe.Rates, recipe.RatesQuantity)
+	for _, step := range recipe.Steps {
+		recipeId, _ := r.getId(recipe.Name)
+		_, _ = r.db.Exec("INSERT into steps(recipe_id,step_number,step_description,time_per_step) VALUES ($1,$2,$3,$4)",
+			recipeId, step.StepNumber, step.StepDescription, step.TimePerStep)
+	}
 	return err
 }
 func (r *Recipe) GetByID(id int64) (models.Recipe, error) {
@@ -33,7 +38,7 @@ func (r *Recipe) GetByID(id int64) (models.Recipe, error) {
 }
 
 func (r *Recipe) GetAll() ([]models.Recipe, error) {
-	rows, err := r.db.Query("SELECT id, name,description, ingredients, steps, total_time, rates, rates_quantity FROM recipe")
+	rows, err := r.db.Query("SELECT id, name,description, ingredients,total_time, rates, rates_quantity FROM recipe")
 	if err != nil {
 		return nil, err
 	}
@@ -41,11 +46,25 @@ func (r *Recipe) GetAll() ([]models.Recipe, error) {
 	recipes := make([]models.Recipe, 0)
 	for rows.Next() {
 		var recipe models.Recipe
-		if err := rows.Scan(&recipe.ID, &recipe.Name, &recipe.Description, &recipe.Ingredients, &recipe.Steps, &recipe.TotalTime, &recipe.Rates, &recipe.RatesQuantity); err != nil {
+		steps := make([]models.Steps, 0)
+		if err := rows.Scan(&recipe.ID, &recipe.Name, &recipe.Description, &recipe.Ingredients, &recipe.TotalTime, &recipe.Rates, &recipe.RatesQuantity); err != nil {
 			return nil, err
 		}
 
+		rowsForStep, err := r.db.Query("select step_number,step_description,time_per_step from steps where recipe_id=$1", recipe.ID)
+		if err != nil {
+			return nil, err
+		}
+		for rowsForStep.Next() {
+			var step models.Steps
+			if err := rowsForStep.Scan(&step.StepNumber, &step.StepDescription, &step.TimePerStep); err != nil {
+				return nil, err
+			}
+			steps = append(steps, step)
+		}
+		recipe.Steps = steps
 		recipes = append(recipes, recipe)
+
 	}
 
 	return recipes, rows.Err()
@@ -79,11 +98,6 @@ func (r *Recipe) Update(id int64, inp models.RecipeUpdate) error {
 		argId++
 	}
 
-	if inp.Steps != nil {
-		setValues = append(setValues, fmt.Sprintf("rating=$%d", argId))
-		args = append(args, *inp.Steps)
-		argId++
-	}
 	if inp.TotalTime != nil {
 		setValues = append(setValues, fmt.Sprintf("rating=$%d", argId))
 		args = append(args, *inp.TotalTime)
@@ -115,4 +129,21 @@ func (r *Recipe) GetByIngredient(ingredient string) ([]models.Recipe, error) {
 	}
 
 	return recipes, rows.Err()
+}
+func (r *Recipe) getTotalTime(recipe models.Recipe) int {
+	totalTime := 0
+	for _, stepTime := range recipe.Steps {
+		totalTime += stepTime.TimePerStep
+	}
+	return totalTime
+}
+func (r *Recipe) getId(name string) (int64, error) {
+	var recipe models.Recipe
+	err := r.db.QueryRow("SELECT id FROM recipe WHERE name=$1", name).
+		Scan(&recipe.ID)
+	if err == sql.ErrNoRows {
+		return 0, models.ErrRecipeNotFound
+	}
+
+	return recipe.ID, err
 }
