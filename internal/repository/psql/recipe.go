@@ -98,3 +98,21 @@ func (r *Recipe) Update(id int64, inp models.RecipeUpdate) error {
 	_, err := r.db.Exec(query, args...)
 	return err
 }
+func (r *Recipe) GetByIngredient(ingredient string) ([]models.Recipe, error) {
+	rows, err := r.db.Query("SELECT id, name,description, ingredients, steps, total_time, rates, rates_quantity FROM recipe WHERE ingredients like '%' || $1 || '%'", ingredient)
+	if err != nil {
+		return nil, err
+	}
+
+	recipes := make([]models.Recipe, 0)
+	for rows.Next() {
+		var recipe models.Recipe
+		if err := rows.Scan(&recipe.ID, &recipe.Name, &recipe.Description, &recipe.Ingredients, &recipe.Steps, &recipe.TotalTime, &recipe.Rates, &recipe.RatesQuantity); err != nil {
+			return nil, err
+		}
+
+		recipes = append(recipes, recipe)
+	}
+
+	return recipes, rows.Err()
+}

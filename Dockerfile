@@ -5,16 +5,15 @@ RUN mkdir /app
 COPY . /app
 WORKDIR /app
 
-RUN CGO_ENABLE=0 go build -o recipet ./cmd/app
+RUN CGO_ENABLE=0 go build -o Recipe_test ./cmd/app
 
-RUN chmod +x /app/recipet
+RUN chmod +x /app/Recipe_test
 
 FROM alpine:latest
 
 RUN mkdir app
 
-#COPY --from=builder /app/tgBot /app/
-#COPY --from=0 /app/configs/main.yml ./configs/
-#COPY --from=0 /app/configs/app.env ./configs/
-#
-#CMD ["./app/tgBot"]
+COPY --from=builder /app/Recipe_test /app/
+COPY --from=0 /app/configs/config.env ./configs/
+
+CMD ["./app/Recipe_test"]

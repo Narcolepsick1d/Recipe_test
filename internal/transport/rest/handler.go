@@ -14,6 +14,7 @@ type Recipes interface {
 	GetAll() ([]models.Recipe, error)
 	Delete(id int64) error
 	Update(id int64, inp models.RecipeUpdate) error
+	GetByIngredient(ingredient string) ([]models.Recipe, error)
 }
 
 type User interface {
@@ -53,6 +54,7 @@ func (h *Handler) InitRouter() *mux.Router {
 	{
 
 		recipes.Use(h.authMiddleware)
+		recipes.HandleFunc("/ingredient/{ingredient}", h.getByIngredient).Methods(http.MethodGet)
 		recipes.HandleFunc("", h.createRecipe).Methods(http.MethodPost)
 		recipes.HandleFunc("/{id:[0-9]+}", h.getRecipeByID).Methods(http.MethodGet)
 		recipes.HandleFunc("/{id:[0-9]+}", h.deleteRecipe).Methods(http.MethodDelete)
@@ -74,4 +76,15 @@ func getIdFromRequest(r *http.Request) (int64, error) {
 	}
 
 	return id, nil
+}
+func getIngredientFromRequest(r *http.Request) (string, error) {
+	vars := mux.Vars(r)
+	ingredient, err := vars["ingredient"]
+	if err != true {
+		return "", errors.New("Неправильно написанно ingredients")
+	}
+	if ingredient == "" {
+		return "", errors.New("no ingredient is mention ")
+	}
+	return ingredient, nil
 }

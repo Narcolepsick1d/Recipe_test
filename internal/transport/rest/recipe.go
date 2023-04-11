@@ -132,3 +132,34 @@ func (h *Handler) updateRecipe(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 }
+func (h *Handler) getByIngredient(w http.ResponseWriter, r *http.Request) {
+	recipes, err := getIngredientFromRequest(r)
+	if err != nil {
+		logError("getByIngredients", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	list, err := h.recipesService.GetByIngredient(recipes)
+	if err != nil {
+
+		if errors.Is(err, models.ErrRecipeNotFound) {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		logError("getRecipeByIngredient", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	response, err := json.Marshal(list)
+	if err != nil {
+		logError("getByIngredients", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Add("Content-Type", "application/json")
+	w.Write(response)
+}

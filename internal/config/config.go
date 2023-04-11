@@ -7,8 +7,7 @@ import (
 )
 
 const (
-	CONFIG_DIR  = "configs"
-	CONFIG_FILE = "main"
+	CONFIG_DIR = "configs"
 )
 
 type Config struct {
@@ -30,8 +29,7 @@ func Init() (*Config, error) {
 	if err := setUpViper(); err != nil {
 		return nil, err
 	}
-	//viper.AddConfigPath(CONFIG_DIR)
-	//viper.SetConfigName(CONFIG_FILE)
+
 	var cfg Config
 	if err := unmarshal(&cfg); err != nil {
 		return nil, err
@@ -64,7 +62,7 @@ func fromEnv(cfg *Config) error {
 }
 
 func setUpViper() error {
-	viper.AddConfigPath("configs")
+	viper.AddConfigPath(CONFIG_DIR)
 
 	return viper.ReadInConfig()
 }
