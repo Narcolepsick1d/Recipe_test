@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 services:
 
@@ -12,14 +12,13 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-    environment:
-      DSN: "host=postgres port=5432 user=postgres password=12345 dbname=recipe sslmode=disable timezone=UTC connect_timeout=5 "
-
+    links:
+      - postgres
 
 
 
   postgres:
-    image: 'postgres:14.4'
+    image: 'postgres:14.7'
     ports:
       - "5432:5432"
     restart: always
@@ -32,3 +31,4 @@ services:
       POSTGRES_DB: recipe
     volumes:
       - ./db-data/postgres/:/var/lib/postgresql/data/
+      - ./init.init.sql:/docker-entrypoint-initdb.d/init.init.sql
