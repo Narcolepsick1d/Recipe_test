@@ -76,6 +76,16 @@ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Honey M
 
 INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Vegetarian Chili', 'Chili with mixed vegetables and beans', 'mixed vegetables, beans, tomato sauce, chili powder, cumin, onion, garlic', 35);
 
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Салат из овощей', 'Летний вариант салата, идеально подходящий для пикника с друзьями.', 'помидоры, огурцы, зеленый соус, маслины, сыр', 30);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Паста с грибами', 'Простое и вкусное блюдо, которое готовится очень быстро.', 'паста, грибы, сливки, чеснок, перец', 20);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Куриная грудка с картофелем и овощами', 'Идеальное блюдо для обеда в будний день, которое насытит и даст энергию на оставшуюся часть дня.', 'куриная грудка, картофель, морковь, лук, перец', 45);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Чили с молоком', 'Оригинальный рецепт чили, в котором молоко придает блюду нежность и подчеркивает вкус специй.', 'фасоль, томаты, куриное мясо, специи, молоко', 60);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Фаршированные баклажаны', 'Необычное блюдо, которое поразит гостей своим видом и вкусом.', 'баклажаны, говядина, томаты, сыр, чеснок', 40);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Рис с овощами', 'Питательное блюдо, которое можно подавать как гарнир или отдельно.', 'рис, морковь, горошек, лук, перец', 25);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Запеченный лосось с овощами', 'Блюдо, которое понравится любителям морепродуктов и здорового питания.', 'лосось, брокколи, цветная капуста, лук, сметана', 30);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Пицца с грибами и беконом', 'Популярное блюдо, которое можно готовить в разных вариациях.', 'тесто, грибы, бекон, сыр, томатный соус', 35);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Шоколадный торт с вишней', 'Идеальный десерт для любителей сладостей.', 'шоколад, вишня, яйца, мука, сахар', 60);
+ INSERT INTO recipe (name, description, ingredients, total_time) VALUES ('Суп-гуляш с мясом', 'Традиционное блюдо, которое понравится всей семье.', 'мясо, картофель, лук, перец, томаты', 50);
 
 INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
 INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
@@ -105,9 +115,9 @@ INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (
 
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (5,2,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (6,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (6,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (6,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (6,1,1);
 
 INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
