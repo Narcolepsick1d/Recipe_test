@@ -48,9 +48,10 @@ func main() {
 
 	usersRepo := psql.NewUsers(db)
 	tokensRepo := psql.NewTokens(db)
+	ratesRepo := psql.NewRates(db)
 	usersService := service.NewUsers(usersRepo, tokensRepo, hasher, []byte("sample secret"))
 
-	handler := rest.NewHandler(recipeService, usersService)
+	handler := rest.NewHandler(recipeService, usersService, ratesRepo)
 
 	// init & run server
 	srv := &http.Server{

@@ -17,7 +17,9 @@ type Recipes interface {
 	GetByIngredient(ingredient string) ([]models.Recipe, error)
 	FilteredByTime(totalTime int) ([]models.Recipe, error)
 }
-
+type Rates interface {
+	CreateRates(rate models.Rates) error
+}
 type User interface {
 	SignUp(inp models.SignUpInput) error
 	SignIn(inp models.SignInInput) (string, string, error)
@@ -26,13 +28,15 @@ type User interface {
 }
 type Handler struct {
 	recipesService Recipes
+	ratesService   Rates
 	usersService   User
 }
 
-func NewHandler(recipe Recipes, users User) *Handler {
+func NewHandler(recipe Recipes, users User, rates Rates) *Handler {
 	return &Handler{
 		recipesService: recipe,
 		usersService:   users,
+		ratesService:   rates,
 	}
 }
 func (h *Handler) InitRouter() *mux.Router {
@@ -56,7 +60,7 @@ func (h *Handler) InitRouter() *mux.Router {
 	{
 
 		recipes.Use(h.authMiddleware)
-
+		recipes.HandleFunc("/rates", h.createRate).Methods(http.MethodPost)
 		recipes.HandleFunc("/ingredient/{ingredient}", h.getByIngredient).Methods(http.MethodGet)
 		recipes.HandleFunc("", h.createRecipe).Methods(http.MethodPost)
 		recipes.HandleFunc("/{id:[0-9]+}", h.getRecipeByID).Methods(http.MethodGet)

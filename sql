@@ -79,5 +79,5 @@ drop table recipe;
 drop table rates;
 insert into recipe (name, description, ingredients, total_time) VALUES ('omlet','egg with milk','egg,butter,milk',6000);
 insert into steps (recipe_id, step_number, step_description, time_per_step) VALUES (1,1,'bit 2 eggs and mix with milk',6000);
-insert into rates (user_id,recipe_id, rate, rate_quantity) VALUES (1,1,5,1);
+insert into rates (recipe_id, rate, rate_quantity) VALUES (1,5,1);
 select recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe join rates  on recipe.id = rates.recipe_id  WHERE recipe.ingredients like '%egg%' ;
