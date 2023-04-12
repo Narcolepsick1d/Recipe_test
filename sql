@@ -17,14 +17,19 @@ CREATE table users(id int primary key generated always as  identity ,name varcha
 
 CREATE table refresh_tokens(  id serial not null unique ,  user_id int references users(id) on delete cascade not null ,  token varchar(255) not null unique ,      expires_at timestamp not null);
 CREATE table recipe(
-    id int primary key generated always as  identity,
-    name varchar,
-    description text,
-    ingredients text,
-    steps text,
-    total_time int,
-    rates int,
-    rates_quantity int
+                       id int primary key generated always as  identity,
+                       name varchar,
+                       description text,
+                       ingredients text,
+                       total_time int,
+                       rates int,
+                       rates_quantity int
+);
+create table steps(
+    recipe_id int references recipe(id) on DELETE cascade ,
+    step_number int,
+    step_description text,
+    time_per_step int
 );
 
 insert into recipe (name, description, ingredients, steps, total_time, rates, rates_quantity) values
