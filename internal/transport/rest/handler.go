@@ -18,7 +18,8 @@ type Recipes interface {
 	FilteredByTime(totalTime int) ([]models.Recipe, error)
 }
 type Rates interface {
-	CreateRates(rate models.Rates) error
+	UpdateRates(rate models.Rates) error
+	FilteredByRates(rate float64) ([]models.Recipe, error)
 }
 type User interface {
 	SignUp(inp models.SignUpInput) error
@@ -53,6 +54,7 @@ func (h *Handler) InitRouter() *mux.Router {
 	{
 		recipes.HandleFunc("", h.getAllRecipes).Methods(http.MethodGet)
 		recipes.HandleFunc("/total_time/{total_time}", h.getByTotalTime).Methods(http.MethodGet)
+		recipes.HandleFunc("/rate/{rate}", h.filteredByRating).Methods(http.MethodGet)
 
 	}
 	recipes = r.PathPrefix("/recipes").Subrouter()
@@ -60,7 +62,7 @@ func (h *Handler) InitRouter() *mux.Router {
 	{
 
 		recipes.Use(h.authMiddleware)
-		recipes.HandleFunc("/rates", h.createRate).Methods(http.MethodPost)
+		recipes.HandleFunc("/rate", h.createRate).Methods(http.MethodPost)
 		recipes.HandleFunc("/ingredient/{ingredient}", h.getByIngredient).Methods(http.MethodGet)
 		recipes.HandleFunc("", h.createRecipe).Methods(http.MethodPost)
 		recipes.HandleFunc("/{id:[0-9]+}", h.getRecipeByID).Methods(http.MethodGet)
@@ -107,4 +109,17 @@ func getTotalTimeFromRequest(r *http.Request) (int, error) {
 	}
 
 	return int(totalTime), nil
+}
+func getRateFromRequest(r *http.Request) (float64, error) {
+	vars := mux.Vars(r)
+	rate, err := strconv.ParseFloat(vars["rate"], 64)
+	if err != nil {
+		return 0, err
+	}
+
+	if rate == 0 {
+		return 0, errors.New("rate can't be 0")
+	}
+
+	return rate, nil
 }

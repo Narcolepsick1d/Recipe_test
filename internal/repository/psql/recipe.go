@@ -19,28 +19,38 @@ func (r *Recipe) Create(recipe models.Recipe) error {
 	totalTime := r.getTotalTime(recipe)
 	_, err := r.db.Exec("INSERT into recipe (name,description, ingredients,total_time) VALUES($1,$2,$3,$4)",
 		recipe.Name, recipe.Description, recipe.Ingredients, totalTime)
+	recipeId, _ := r.getId(recipe.Name)
 	for _, step := range recipe.Steps {
-		recipeId, _ := r.getId(recipe.Name)
-		_, _ = r.db.Exec("INSERT into steps(recipe_id,step_number,step_description,time_per_step) VALUES ($1,$2,$3,$4)",
+
+		_, err = r.db.Exec("INSERT into steps(recipe_id,step_number,step_description,time_per_step) VALUES ($1,$2,$3,$4)",
 			recipeId, step.StepNumber, step.StepDescription, step.TimePerStep)
+		if err != nil {
+			return err
+		}
+	}
+
+	_, err = r.db.Exec("INSERT INTO rates(recipe_id,rate,rate_quantity)values ($1,$2,$3)",
+		recipeId, 0, 0)
+	if err != nil {
+		return err
 	}
 	return err
 }
 func (r *Recipe) GetByID(id int64) (models.Recipe, error) {
 	var recipe models.Recipe
-	err := r.db.QueryRow("select recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe join rates  on recipe.id = rates.recipe_id where recipe_id=1;\n", id).
-		Scan(&recipe.ID, &recipe.Name, &recipe.Description, &recipe.Ingredients, &recipe.TotalTime)
+	err := r.db.QueryRow("select recipe.id ,recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe join rates  on recipe.id = rates.recipe_id where recipe_id=$1", id).
+		Scan(&recipe.ID, &recipe.Name, &recipe.Description, &recipe.Ingredients, &recipe.TotalTime, &recipe.Rates.Rate, &recipe.Rates.RateQuantity)
 	if err == sql.ErrNoRows {
 		return recipe, models.ErrRecipeNotFound
 	}
-	rowsForStep, err := r.db.Query("select step_number,step_description,time_per_step from steps where recipe_id=$1", id)
+	rowsForStep, err := r.db.Query("select recipe_id, step_number,step_description,time_per_step from steps where recipe_id=$1", id)
 	if err != nil {
 		return recipe, err
 	}
 	steps := make([]models.Steps, 0)
 	for rowsForStep.Next() {
 		var step models.Steps
-		if err := rowsForStep.Scan(&step.StepNumber, &step.StepDescription, &step.TimePerStep); err != nil {
+		if err := rowsForStep.Scan(&step.RecipeId, &step.StepNumber, &step.StepDescription, &step.TimePerStep); err != nil {
 			return recipe, err
 		}
 		steps = append(steps, step)
@@ -50,7 +60,7 @@ func (r *Recipe) GetByID(id int64) (models.Recipe, error) {
 }
 
 func (r *Recipe) GetAll() ([]models.Recipe, error) {
-	rows, err := r.db.Query("select recipe.id, recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe join rates  on recipe.id = rates.recipe_id ")
+	rows, err := r.db.Query("select recipe.id, recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe left join rates  on recipe.id = rates.recipe_id ")
 	if err != nil {
 		return nil, err
 	}
@@ -63,13 +73,13 @@ func (r *Recipe) GetAll() ([]models.Recipe, error) {
 			return nil, err
 		}
 
-		rowsForStep, err := r.db.Query("select step_number,step_description,time_per_step from steps where recipe_id=$1", recipe.ID)
+		rowsForStep, err := r.db.Query("select recipe_id,step_number,step_description,time_per_step from steps where recipe_id=$1 ", recipe.ID)
 		if err != nil {
 			return nil, err
 		}
 		for rowsForStep.Next() {
 			var step models.Steps
-			if err := rowsForStep.Scan(&step.StepNumber, &step.StepDescription, &step.TimePerStep); err != nil {
+			if err := rowsForStep.Scan(&step.RecipeId, &step.StepNumber, &step.StepDescription, &step.TimePerStep); err != nil {
 				return nil, err
 			}
 			steps = append(steps, step)
@@ -125,7 +135,7 @@ func (r *Recipe) Update(id int64, inp models.RecipeUpdate) error {
 	return err
 }
 func (r *Recipe) GetByIngredient(ingredient string) ([]models.Recipe, error) {
-	rows, err := r.db.Query("select recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe join rates  on recipe.id = rates.recipe_id  WHERE recipe.ingredients like  '%' || $1 || '%'", ingredient)
+	rows, err := r.db.Query("select recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe left join rates  on recipe.id = rates.recipe_id  WHERE recipe.ingredients like  '%' || $1 || '%'", ingredient)
 	if err != nil {
 		return nil, err
 	}

@@ -110,7 +110,7 @@ func (s *Users) generateTokens(userId int64) (string, string, error) {
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
 		Subject:   strconv.Itoa(int(userId)),
 		IssuedAt:  time.Now().Unix(),
-		ExpiresAt: time.Now().Add(time.Minute * 15).Unix(),
+		ExpiresAt: time.Now().Add(time.Minute * 1500).Unix(),
 	})
 
 	accessToken, err := t.SignedString(s.hmacSecret)
