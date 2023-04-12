@@ -3,7 +3,7 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"reciept/internal/models"
 
@@ -11,7 +11,7 @@ import (
 )
 
 func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
-	reqBytes, err := ioutil.ReadAll(r.Body)
+	reqBytes, err := io.ReadAll(r.Body)
 	if err != nil {
 		logError("signUp", err)
 		w.WriteHeader(http.StatusBadRequest)
@@ -42,7 +42,7 @@ func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
-	reqBytes, err := ioutil.ReadAll(r.Body)
+	reqBytes, err := io.ReadAll(r.Body)
 	if err != nil {
 		logError("signIn", err)
 		w.WriteHeader(http.StatusBadRequest)

@@ -50,7 +50,7 @@ func (r *Recipe) GetByID(id int64) (models.Recipe, error) {
 }
 
 func (r *Recipe) GetAll() ([]models.Recipe, error) {
-	rows, err := r.db.Query("select recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe join rates  on recipe.id = rates.recipe_id ")
+	rows, err := r.db.Query("select recipe.id, recipe.name,recipe.description,recipe.ingredients,recipe.total_time,rates.rate,rates.rate_quantity from recipe join rates  on recipe.id = rates.recipe_id ")
 	if err != nil {
 		return nil, err
 	}
