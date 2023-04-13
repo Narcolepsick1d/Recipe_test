@@ -120,72 +120,72 @@ INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (
 INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (6,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (6,1,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (7,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (7,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (7,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (7,5,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (8,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (8,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (8,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (8,5,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (9,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (9,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (9,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (9,4,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (10,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (10,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (10,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (10,4,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (11,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (11,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (11,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (11,3,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (12,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (12,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (12,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (12,3,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (13,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (13,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (13,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (13,2,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (14,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (14,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (14,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (14,5,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (15,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (15,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (15,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (15,2,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (16,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (16,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (16,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (16,4,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (17,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (17,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (17,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (17,5,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (18,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (18,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (18,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (18,5,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (19,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (19,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (19,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (19,3,1);
 
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,1,'take spaghetti and ...',1000);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,2,'take tomato ...',1500);
-INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (1,3,'take plate and ...',500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (20,1,'take spaghetti and ...',1000);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (20,2,'take tomato ...',1500);
+INSERT INTO steps(recipe_id,step_number,step_description,time_per_step) VALUES (20,3,'take plate and ...',500);
 INSERT INTO rates(recipe_id,rate,rate_quantity)VALUES (20,5,1);
