@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+const InitValue = 0
+
 type Recipe struct {
 	db *sql.DB
 }
@@ -30,7 +32,7 @@ func (r *Recipe) Create(recipe models.Recipe) error {
 	}
 
 	_, err = r.db.Exec("INSERT INTO rates(recipe_id,rate,rate_quantity)values ($1,$2,$3)",
-		recipeId, 0, 0)
+		recipeId, InitValue, InitValue)
 	if err != nil {
 		return err
 	}
